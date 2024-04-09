@@ -1,69 +1,103 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useLocation, } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Card, Button, Avatar } from "@material-tailwind/react";
+import img from "../assets/Screenshot_2024-04-10_000413-removebg-preview.png";
 import html2canvas from "html2canvas";
+//import './card.css'
+import img2 from "../assets/bg.png";
+import logo from "../assets/bkash-icon.webp";
 
 const SalamiCard = () => {
-  const location = useLocation()
-  console.log(location)
-  const data = location.state?.data
-  console.log(data)
-  const { name, bkash , photoUrl} = data
+  const location = useLocation();
+  console.log(location);
+  const data = location.state?.data;
+  console.log(data);
+  const { name, bkash, photoUrl } = data;
 
   const handleDownloadImage = async (withText = true) => {
     // Get the card element from the DOM
     const cardElement = document.querySelector(".eid-salami-card");
-  
     if (withText) {
-      // Capture the entire card (image and text) using html2canvas
-      try {
-        const canvas = await html2canvas(cardElement, {
-          scale: 1, // Avoid scaling issues
-          logging: false, // Suppress unnecessary logs
-          useCORS: true, // Enable CORS for external resources
-        });
-  
-        // Convert the captured content to an image data URL
-        const imgURI = canvas.toDataURL("image/png");
-  
-        // Create a temporary link element for download
-        const link = document.createElement("a");
-        link.href = imgURI;
-        link.download = "SalamiCard.png";
-  
-        // Trigger the download by clicking the link
-        link.click();
-      } catch (err) {
-        console.error("Error capturing card:", err);
-      }
+      // Create a new canvas element with matching size
+      const maskCanvas = document.createElement("canvas");
+      const maskCtx = maskCanvas.getContext("2d");
+      maskCanvas.width = cardElement.clientWidth;
+      maskCanvas.height = cardElement.clientHeight;
+
+      // Draw a rectangle to cover the entire card area with a slight transparent black fill
+      maskCtx.fillStyle = "rgba(0, 0, 0, 0.2)"; // Adjust transparency as needed
+      maskCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+
+      // Proceed with capturing the card content
+      const cardCanvas = await html2canvas(cardElement, {
+        scale: 1, // Avoid scaling issues
+        logging: false, // Suppress unnecessary logs
+        useCORS: true, // Enable CORS for external resources
+      });
+      const ctx = cardCanvas.getContext("2d");
+
+      // Draw the mask canvas onto the card canvas (effectively masking the shadow)
+      ctx.drawImage(maskCanvas, 0, 0);
+
+      // Convert the captured content (with mask) to an image data URL
+      const imgURI = cardCanvas.toDataURL("image/png");
+
+      // Create a temporary link element for download
+      const link = document.createElement("a");
+      link.href = imgURI;
+      link.download = "SalamiCard.png";
+
+      // Trigger the download by clicking the link
+      link.click();
     }
   };
   return (
     <div>
       {/* <h2>hello there</h2> */}
-      <Card className="shadow-md max-w-96 p-4 mx-auto eid-salami-card">
-        <Avatar src={photoUrl} variant="circular" alt="photo" className="mx-auto w-40 h-40"/>
-        <div className="p-4">
-          <h2 size="h5" className="font-bold text-center">
-            Eid Mubarak, {name}!
-          </h2>
-          <p className="text-gray-700 mt-2">
-            May your Eid be filled with joy, blessings, and delicious food!
-          </p>
-          <p className="font-medium mt-4">
-            Bkash/Nagad Number: {bkash}
-          </p>
-        </div>
-        <div className="flex justify-center mt-4">
-          <Button onClick={handleDownloadImage} variant="outlined" rounded="full">
+      <div>
+        <Card className="max-w-[350px]  mx-auto eid-salami-card  relative">
+          <figure>
+            <img className="" src={img2} alt="" />
+          </figure>
+          <div className="absolute">
+            <figure>
+              <img className="mx-auto" src={img} alt="" />
+            </figure>
+            <div className="relative -top-20">
+              <Avatar
+                src={photoUrl}
+                variant="circular"
+                alt="photo"
+                className="mx-auto w-40 h-40"
+              />
+              <div className="p-4">
+                <h2 size="h5" className="font-bold text-black text-center">
+                  আস্সালামালাইকুম, ঈদ মুবারক!
+                </h2>
+                <p className="text-black mt-1">
+                  সালাম তো দিলাম , এখন সালামী দেয়ার দায়িত্ব আপনার।
+                </p>
+                <div className="font-medium flex items-center justify-center gap-2 text-black mt-4">
+                  <img className="size-8" src={logo} alt="" /> {bkash}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+        <div className="flex justify-center mt-4 gap-4">
+          <Button
+            onClick={handleDownloadImage}
+            variant="outlined"
+            rounded="full"
+          >
             Download
           </Button>
           <Button rounded="full" ml={2}>
             Share
           </Button>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };
