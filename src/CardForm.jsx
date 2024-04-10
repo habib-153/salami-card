@@ -16,24 +16,24 @@ const CardForm = ({handleCardGeneration}) => {
   return (
     <div className='max-w-96 mx-auto'>
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+      <label htmlFor="name" className="block text-left my-2 font-bold ">
         Name:
       </label>
-      <Input type="text" id="name" {...register('name', { required: true })} />
+      <Input type="text" label='Name' color='teal' id="name" {...register('name', { required: true })} />
       {errors.name && <p className="text-red-500 text-xs">Name is required</p>}
 
-      <label htmlFor="bkashNagadNumber" className="block text-sm font-medium text-gray-700 mt-4">
+      <label htmlFor="bkashNagadNumber" className="block text-left font-bold  my-2">
         Bkash/Nagad Number:
       </label>
-      <Input type="text" id="bkashNagadNumber" {...register('bkashNagadNumber', { required: true })} />
+      <Input type="text" label='Number'  color='teal' id="bkashNagadNumber" {...register('bkashNagadNumber', { required: true })} />
       {errors.bkashNagadNumber && (
         <p className="text-red-500 text-xs">Bkash/Nagad Number is required</p>
       )}
 
-      <label htmlFor="photo" className="block text-sm font-medium text-gray-700 mt-4">
+      <label htmlFor="photo" className="block text-left font-bold  mt-4 my-2">
         Photo:
       </label>
-      <Input type="file" id="photo" {...register('photo')} accept="image/*" />
+      <Input label='Image' color='teal' type="file" id="photo" {...register('photo')} accept="image/*" />
       {errors.photo && <p className="text-red-500 text-xs">Photo is required</p>}
 
       <Button type="submit" className="mt-4" >
