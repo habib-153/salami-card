@@ -3,7 +3,6 @@ import "./App.css";
 import CardForm from "./CardForm";
 import { ShareSocial } from "react-share-social";
 import { Button } from "@material-tailwind/react";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +25,10 @@ function App() {
       if(photoUrl){
         const data = {
           name: formData.name,
-          bkash: formData.bkashNagadNumber,
+          bkash: formData.bkash,
+          nagad: formData.nagad,
+          rocket: formData.rocket,
+          upay: formData.upay,
           photoUrl: photoUrl
         }
         setCardData(data)
@@ -37,30 +39,6 @@ function App() {
       }
       
     }
-  };
-  const handleDownload = () => {
-    if (!cardData) return;
-
-    const cardElement = document.querySelector(".eid-salami-card");
-    const svg = new window.SVGElement(0, 0); // Create SVG element
-    const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(cardElement);
-
-    // Add namespace for SVG (if using SVG elements in your card design)
-    if (source.indexOf("<svg") !== -1) {
-      source = `<?xml version="1.0" encoding="UTF-8"?>${source.replace(
-        "<svg",
-        '<svg xmlns="http://www.w3.org/2000/svg"'
-      )}`;
-    }
-
-    svg.innerHTML = source;
-
-    const svgData = new Blob([source], { type: "image/svg+xml;charset=utf-8" });
-    const downloadLink = document.createElement("a");
-    downloadLink.href = URL.createObjectURL(svgData);
-    downloadLink.download = "eid-salami-card.svg"; // Customize filename
-    downloadLink.click();
   };
 
   const handleShare = () => {
@@ -85,30 +63,14 @@ function App() {
         <Button rounded="full">Share on Facebook</Button>
       </ShareSocial>
     );
-
-    // Replace with similar logic for other social media platforms (Twitter, etc.)
   };
   return (
     <>
       <div className="container mx-auto px-4 mt-8">
-        <h1 className="text-3xl font-bold text-center mb-8">
-          Eid Salami Card Generator
+        <h1 className="text-3xl font-bold text-center">
+          Eid Card Generator
         </h1>
         <CardForm handleCardGeneration={handleCardGeneration} />
-        {/* {cardData ? (
-        <div className="mt-8">
-          <SalamiCard cardData={cardData} />
-          <div className="flex justify-center mt-4">
-            <Button variant="outlined" rounded="full" onClick={handleDownload}>
-              Download
-            </Button>
-            <div className="ml-2">{handleShare()}</div>
-          </div>
-        </div>
-      )
-      : 
-      <div>none</div>
-    } */}
       </div>
     </>
   );

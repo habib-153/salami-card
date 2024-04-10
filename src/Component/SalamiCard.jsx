@@ -6,14 +6,17 @@ import img from "../assets/Screenshot_2024-04-10_000413-removebg-preview.png";
 import html2canvas from "html2canvas";
 //import './card.css'
 import img2 from "../assets/bg.png";
-import logo from "../assets/bkash-icon.webp";
+import bkashLogo from "../assets/bkash2.png";
+import nagadLogo from '../assets/nagad1.png'
+import rocketLogo from '../assets/rocket1.png'
+import upayLogo from '../assets/upay.png'
 
 const SalamiCard = () => {
   const location = useLocation();
   console.log(location);
   const data = location.state?.data;
   console.log(data);
-  const { name, bkash, photoUrl } = data;
+  const { name, photoUrl } = data;
 
   const handleDownloadImage = async (withText = true) => {
     // Get the card element from the DOM
@@ -53,39 +56,60 @@ const SalamiCard = () => {
     }
   };
   return (
-    <div>
-      {/* <h2>hello there</h2> */}
       <div>
-        <Card className="max-w-[350px]  mx-auto eid-salami-card  relative">
-          <figure>
-            <img className="" src={img2} alt="" />
+        <Card className="max-w-[360px]  min-h-[550px] mx-auto eid-salami-card  relative">
+          <figure className="h-full">
+            <img className="min-h-[550px]" src={img2} alt="" />
           </figure>
           <div className="absolute">
             <figure>
               <img className="mx-auto" src={img} alt="" />
             </figure>
-            <div className="relative -top-20">
+            <div className="relative -top-14 text-center md:-top-20">
               <Avatar
                 src={photoUrl}
                 variant="circular"
                 alt="photo"
                 className="mx-auto w-40 h-40"
               />
-              <div className="p-4">
-                <h2 size="h5" className="font-bold text-black text-center">
-                  আস্সালামালাইকুম, ঈদ মুবারক!
+              <div className="p-2">
+                <h2 size="h5" className="font-bold text-black text-lg text-center">
+                আসসালামু আলাইকুম, ঈদ মুবারক!
                 </h2>
                 <p className="text-black mt-1">
                   সালাম তো দিলাম , এখন সালামী দেয়ার দায়িত্ব আপনার।
                 </p>
-                <div className="font-medium flex items-center justify-center gap-2 text-black mt-4">
-                  <img className="size-8" src={logo} alt="" /> {bkash}
+                <div className="flex flex-wrap gap-2 items-center justify-center">
+                  {data?.bkash ? (
+                  <div className="font-medium flex items-center justify-center gap-2 text-black mt-4">
+                    <img className="size-8" src={bkashLogo} alt="" /> {data?.bkash}
+                  </div>
+                ) : undefined
+                }
+                {data?.nagad ? (
+                  <div className="font-medium flex items-center justify-center gap-2 text-black mt-4">
+                    <img className="size-8" src={nagadLogo} alt="" /> {data?.nagad}
+                  </div>
+                ) : undefined
+                }
+                {data?.rocket ? (
+                  <div className="font-medium flex items-center justify-center gap-2 text-black mt-4">
+                    <img className="size-8" src={rocketLogo} alt="" /> {data?.rocket}
+                  </div>
+                ) : undefined
+                }
+                {data?.upay ? (
+                  <div className="font-medium flex items-center justify-center gap-2 text-black mt-4">
+                    <img className="size-8" src={upayLogo} alt="" /> {data?.upay}
+                  </div>
+                ) : undefined
+                }
                 </div>
               </div>
             </div>
           </div>
         </Card>
-        <div className="flex justify-center mt-4 gap-4">
+        <div className="flex justify-center mt-8 gap-4">
           <Button
             onClick={handleDownloadImage}
             variant="outlined"
@@ -93,12 +117,8 @@ const SalamiCard = () => {
           >
             Download
           </Button>
-          <Button rounded="full" ml={2}>
-            Share
-          </Button>
         </div>
       </div>
-    </div>
   );
 };
 

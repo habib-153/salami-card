@@ -7,9 +7,7 @@ const CardForm = ({handleCardGeneration}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (formData) => {
-    // Implement logic to process uploaded photo (if needed)
-    // ... your photo handling logic here
-    console.log(formData); // For now, log the submitted data
+    console.log(formData);
     handleCardGeneration(formData)
   };
 
@@ -22,12 +20,33 @@ const CardForm = ({handleCardGeneration}) => {
       <Input type="text" label='Name' color='teal' id="name" {...register('name', { required: true })} />
       {errors.name && <p className="text-red-500 text-xs">Name is required</p>}
 
-      <label htmlFor="bkashNagadNumber" className="block text-left font-bold  my-2">
-        Bkash/Nagad Number:
+      <label className="block text-left font-bold  my-2">
+        Bkash:
       </label>
-      <Input type="text" label='Number'  color='teal' id="bkashNagadNumber" {...register('bkashNagadNumber', { required: true })} />
-      {errors.bkashNagadNumber && (
-        <p className="text-red-500 text-xs">Bkash/Nagad Number is required</p>
+      <Input type="text" label='Number'  color='teal' {...register('bkash', { minLength: 11})} />
+      {errors.bkash?.type === 'minLength' && (
+        <p className="text-red-500 text-xs">Enter a valid number</p>
+      )}
+      <label className="block text-left font-bold  my-2">
+        Nagad:
+      </label>
+      <Input type="text" label='Number'  color='teal' {...register('nagad', { minLength: 11})} />
+      {errors.nagad?.type === 'minLength' && (
+        <p className="text-red-500 text-xs">Enter a valid number</p>
+      )}
+      <label className="block text-left font-bold  my-2">
+        Rocket:
+      </label>
+      <Input type="text" label='Number'  color='teal' {...register('rocket', { minLength: 11})} />
+      {errors.rocket?.type === 'minLength' && (
+        <p className="text-red-500 text-xs">Enter a valid number</p>
+      )}
+      <label className="block text-left font-bold  my-2">
+        Upay:
+      </label>
+      <Input type="text" label='Number'  color='teal' {...register('upay', { minLength: 11})} />
+      {errors.upay?.type === 'minLength' && (
+        <p className="text-red-500 text-xs">Enter a valid number</p>
       )}
 
       <label htmlFor="photo" className="block text-left font-bold  mt-4 my-2">
