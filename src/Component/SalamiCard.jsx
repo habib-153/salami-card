@@ -56,10 +56,10 @@ const SalamiCard = () => {
     }
   };
   return (
-      <div>
-        <Card className="max-w-[360px]  min-h-[550px] mx-auto eid-salami-card  relative">
+      <div className="p-2">
+        <Card className="max-w-[360px]  min-h-[520px] mx-auto eid-salami-card  relative">
           <figure className="h-full">
-            <img className="min-h-[550px]" src={img2} alt="" />
+            <img className="min-h-[520px]" src={img2} alt="" />
           </figure>
           <div className="absolute">
             <figure>
@@ -109,7 +109,7 @@ const SalamiCard = () => {
             </div>
           </div>
         </Card>
-        <div className="flex justify-center mt-8 gap-4">
+        <div className="flex justify-center my-4 gap-4">
           <Button
             onClick={handleDownloadImage}
             variant="outlined"

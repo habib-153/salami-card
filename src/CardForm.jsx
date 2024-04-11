@@ -55,9 +55,12 @@ const CardForm = ({handleCardGeneration}) => {
       <Input label='Image' color='teal' type="file" id="photo" {...register('photo')} accept="image/*" />
       {errors.photo && <p className="text-red-500 text-xs">Photo is required</p>}
 
-      <Button type="submit" className="mt-4" >
+      <div className='w-full text-center'>
+        <Button type="submit" className="mt-4 mx-auto" >
         Generate Card
       </Button>
+      </div>
+      
     </form>
     </div>
     
