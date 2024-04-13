@@ -16,7 +16,7 @@ const SalamiCard = () => {
   console.log(location);
   const data = location.state?.data;
   console.log(data);
-  const { name, photoUrl } = data;
+  
 
   const handleDownloadImage = async (withText = true) => {
     // Get the card element from the DOM
@@ -29,7 +29,7 @@ const SalamiCard = () => {
       maskCanvas.height = cardElement.clientHeight;
 
       // Draw a rectangle to cover the entire card area with a slight transparent black fill
-      maskCtx.fillStyle = "rgba(0, 0, 0, 0.2)"; // Adjust transparency as needed
+      maskCtx.fillStyle = "rgba(0, 0, 0, 0)"; // Adjust transparency as needed
       maskCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
 
       // Proceed with capturing the card content
@@ -65,12 +65,12 @@ const SalamiCard = () => {
             <figure>
               <img className="mx-auto" src={img} alt="" />
             </figure>
-            <div className="relative -top-14 text-center md:-top-20">
+            <div className="relative -top-16 text-center md:-top-20">
               <Avatar
-                src={photoUrl}
+                src={data?.photoUrl}
                 variant="circular"
                 alt="photo"
-                className="mx-auto w-40 h-40"
+                className="mx-auto h-44 w-44"
               />
               <div className="p-2">
                 <h2 size="h5" className="font-bold text-black text-lg text-center">
@@ -109,7 +109,7 @@ const SalamiCard = () => {
             </div>
           </div>
         </Card>
-        <div className="flex justify-center my-4 gap-4">
+        <div className="flex justify-center my-8 gap-4">
           <Button
             onClick={handleDownloadImage}
             variant="outlined"

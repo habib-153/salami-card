@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import "./App.css";
 import CardForm from "./CardForm";
@@ -43,9 +44,6 @@ function App() {
 
   const handleShare = () => {
     if (!cardData) return;
-
-    // Choose your preferred social media sharing library/approach here
-    // You can use libraries like react-share or social-sharing-buttons
 
     const message = `Eid Mubarak! Wishing you a joyful Eid with this salami card from ${cardData.name}.`;
     const cardUrl = URL.createObjectURL(

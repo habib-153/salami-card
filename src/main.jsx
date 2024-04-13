@@ -3,32 +3,20 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App.jsx'
 import './index.css'
-import Hello from './hello.jsx';
 import SalamiCard from './Component/SalamiCard.jsx';
+import ErrorElement from './Component/ErrorElement.jsx';
 
 const router = createBrowserRouter([
   {
     path:'/',
     element: <App />,
-    // children:[
-    //   {
-    //     path: 'salamiCard',
-    //     element: <SalamiCard />
-    //   },
-    //   {
-    //     path:'hello',
-    //     element: <Hello></Hello>
-    //   }
-    // ]
+    errorElement: <ErrorElement />
   },
   {
     path: '/salamiCard',
-    element: <SalamiCard />
+    element: <SalamiCard />,
+    errorElement: <ErrorElement />
   },
-  {
-    path:'/hello',
-    element: <Hello />
-  }
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
